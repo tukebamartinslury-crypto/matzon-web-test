@@ -50,7 +50,6 @@ export function LandingPage() {
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <button style={{ background: 'transparent', border: 'none', color: '#808085', cursor: 'pointer' }}>
-              <Search style={{ width: 20, height: 20 }} />
             </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/login')}>
               <span style={{ fontSize: 14, fontWeight: 500, color: '#808085' }}>Entrar</span>
@@ -138,7 +137,6 @@ export function LandingPage() {
               ))}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#18181c', border: '1px solid rgba(255,255,255,0.08)', padding: '8px 16px', borderRadius: 20 }}>
                 <input placeholder="Pesquisar" style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: 12, width: 80 }} />
-                <Search style={{ width: 14, height: 14, color: '#808085' }} />
               </div>
             </div>
           </div>
