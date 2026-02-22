@@ -2,21 +2,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Home, LayoutGrid, User, Heart, Clock, Download, Search, Play, Plus, Star } from 'lucide-react';
+import { Play, Plus, Star } from 'lucide-react';
 
 export function LandingPage() {
   const router = useRouter();
   const [activeNav, setActiveNav] = useState(0);
   const [activeTab, setActiveTab] = useState('Torneios');
 
-  const sideIcons = [
-    { icon: Home, label: 'Início' },
-    { icon: LayoutGrid, label: 'Explorar' },
-    { icon: User, label: 'Perfil' },
-    { icon: Heart, label: 'Favoritos' },
-    { icon: Clock, label: 'Histórico' },
-    { icon: Download, label: 'Guardados' },
-  ];
+  
 
   const players = [
     { name: 'Faker_EU', game: 'Valorant', elo: 4850, wins: 342, img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop', color: '#2563FF' },
@@ -40,25 +33,10 @@ export function LandingPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#0a0a0c', color: '#fff', fontFamily: "'Inter', sans-serif" }}>
 
-      {/* SIDEBAR */}
-      <aside style={{ width: 80, backgroundColor: '#121215', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px 0', position: 'fixed', height: '100vh', borderRight: '1px solid rgba(255,255,255,0.05)', zIndex: 50, top: 0, left: 0 }}>
-        <div style={{ marginBottom: 48 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg, #2563FF, #7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Play style={{ width: 16, height: 16, color: '#fff', fill: '#fff' }} />
-          </div>
-        </div>
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-          {sideIcons.map((item, i) => (
-            <button key={i} onClick={() => setActiveNav(i)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, borderRadius: 12, transition: 'all 0.2s', color: activeNav === i ? '#2563FF' : '#808085', backgroundColor: activeNav === i ? 'rgba(37,99,255,0.1)' : 'transparent' }}>
-              <item.icon style={{ width: 22, height: 22 }} />
-            </button>
-          ))}
-        </nav>
-      </aside>
+      
 
       {/* MAIN CONTENT */}
-      <main style={{ marginLeft: 80, flex: 1, padding: '32px 48px', paddingTop: 100 }}>
+      <main style={{  flex: 1, padding: '32px 48px', paddingTop: 80 }}>
 
         {/* TOP NAV */}
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
