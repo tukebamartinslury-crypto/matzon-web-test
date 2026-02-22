@@ -1,4 +1,5 @@
 'use client';
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 import { Navbar } from '@/components/layout/Navbar';
 import { DashboardOfficial } from '@/components/dashboard/DashboardOfficial';
 import { Footer } from '@/components/layout/Footer';

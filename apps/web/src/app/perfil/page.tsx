@@ -1,4 +1,5 @@
 'use client';
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 import { ProfileOfficial } from '@/components/profile/ProfileOfficial';
 
 
