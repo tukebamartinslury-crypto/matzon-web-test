@@ -3,7 +3,6 @@ import { Navbar } from '@/components/layout/Navbar';
 import { DashboardOfficial } from '@/components/dashboard/DashboardOfficial';
 import { Footer } from '@/components/layout/Footer';
 
-export const metadata = { title: 'Dashboard | MATZON' };
 
 export default function DashboardPage() {
   const isLoggedIn = useAuthGuard();

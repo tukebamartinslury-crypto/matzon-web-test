@@ -2,7 +2,6 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { MatchmakingView } from '@/components/matchmaking/MatchmakingView';
 
-export const metadata = { title: 'Matchmaking | MATZON' };
 
 export default function MatchmakingPage() {
   const isLoggedIn = useAuthGuard();
