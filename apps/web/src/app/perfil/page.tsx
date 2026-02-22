@@ -1,3 +1,4 @@
+'use client';
 import { ProfileOfficial } from '@/components/profile/ProfileOfficial';
 
 export const metadata = {
