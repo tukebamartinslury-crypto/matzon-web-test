@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Play, Plus, Star } from 'lucide-react';
+import { Play, Plus, Star, X, Eye, EyeOff } from 'lucide-react';
 
 export function LandingPage() {
   const router = useRouter();
@@ -51,7 +51,7 @@ export function LandingPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <button style={{ background: 'transparent', border: 'none', color: '#808085', cursor: 'pointer' }}>
             </button>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/login')}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => setShowLogin(true)}>
               <span style={{ fontSize: 14, fontWeight: 500, color: '#808085' }}>Entrar</span>
               <img src="https://ui-avatars.com/api/?name=User&background=2563FF&color=fff&size=35" style={{ width: 35, height: 35, borderRadius: '50%' }} />
             </div>
@@ -81,7 +81,7 @@ export function LandingPage() {
             </p>
 
             <div style={{ display: 'flex', gap: 12, marginBottom: 40 }}>
-              <button onClick={() => router.push('/login')}
+              <button onClick={() => setShowLogin(true)}
                 style={{ background: 'linear-gradient(135deg, #2563FF, #7C3AED)', color: '#fff', border: 'none', padding: '13px 32px', borderRadius: 30, fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 8px 24px rgba(37,99,255,0.4)' }}>
                 Começar agora
               </button>
