@@ -27,7 +27,7 @@ export function Navbar() {
   }, [lastY]);
 
   const floatingMenuItems = [
-    { icon: Home, label: 'Início', href: '/' },
+    { icon: Home, label: 'Inicio', href: '/' },
     { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
     { icon: Zap, label: 'Match', href: '/matchmaking' },
     { icon: Swords, label: 'Duelo', href: '/duelo' },
@@ -37,7 +37,7 @@ export function Navbar() {
     { icon: MessageCircle, label: 'Chat', href: '/chat' },
     { icon: User, label: 'Perfil', href: '/perfil' },
     { icon: Wallet, label: 'Wallet', href: '/wallet' },
-    { icon: Settings, label: 'Definições', href: '/configuracoes' },
+    { icon: Settings, label: 'Definicoes', href: '/configuracoes' },
     { icon: Shield, label: 'Admin', href: '/admin' },
   ];
 
@@ -45,8 +45,6 @@ export function Navbar() {
     setIsOpen(false);
     router.push(href);
   };
-
-  const handleLogout = () => { logout(); navigate('/'); };
 
   return (
     <motion.div
@@ -85,56 +83,72 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* LOGIN / LOGOUT */}
-        {!isLoggedIn ? (
-          <motion.button
-            onClick={() => navigate('/')}
-            className="px-5 py-2 rounded-full text-sm font-bold text-black bg-white mr-3"
-            whileTap={{ scale: 0.95 }}
-          >
-            Entrar
-          </motion.button>
-        ) : null}
+        {/* LADO DIREITO */}
+        <div className="flex items-center gap-3">
 
-        {/* HAMBURGUER - so logado */}
-        {isLoggedIn && (
-        <div className="flex flex-col items-end z-[999]">
-          <motion.div
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-[50px] h-[50px] rounded-full flex justify-center items-center cursor-pointer shadow-xl"
-            style={{ backgroundColor: '#FFFFFF' }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <div className="w-[20px] h-[20px] relative">
-              <motion.span animate={{ top: isOpen ? 8.5 : 3, rotate: isOpen ? 45 : 0 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
-              <motion.span animate={{ opacity: isOpen ? 0 : 1, top: 8.5 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
-              <motion.span animate={{ top: isOpen ? 8.5 : 14, rotate: isOpen ? -45 : 0 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
+          {/* BOTAO ENTRAR - so nao logado */}
+          {!isLoggedIn && (
+            <motion.button
+              onClick={() => navigate('/')}
+              className="px-5 py-2 rounded-full text-sm font-bold text-black bg-white"
+              whileTap={{ scale: 0.95 }}
+            >
+              Entrar
+            </motion.button>
+          )}
+
+          {/* HAMBURGUER - so logado */}
+          {isLoggedIn && (
+            <div className="flex flex-col items-end z-[999]">
+              <motion.div
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-[50px] h-[50px] rounded-full flex justify-center items-center cursor-pointer shadow-xl"
+                style={{ backgroundColor: '#FFFFFF' }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <div className="w-[20px] h-[20px] relative">
+                  <motion.span animate={{ top: isOpen ? 8.5 : 3, rotate: isOpen ? 45 : 0 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
+                  <motion.span animate={{ opacity: isOpen ? 0 : 1, top: 8.5 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
+                  <motion.span animate={{ top: isOpen ? 8.5 : 14, rotate: isOpen ? -45 : 0 }} className="block w-full h-[2.5px] absolute left-0" style={{ backgroundColor: '#000000' }} />
+                </div>
+              </motion.div>
+
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.ul className="absolute top-[60px] right-0 flex flex-col gap-[10px] m-0 p-0 list-none">
+                    {floatingMenuItems.map((item, index) => (
+                      <motion.li
+                        key={item.label}
+                        initial={{ opacity: 0, x: 20, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: 20, scale: 0.8 }}
+                        transition={{ delay: index * 0.06, type: "spring", stiffness: 260, damping: 20 }}
+                        onClick={() => navigate(item.href)}
+                        className="flex items-center gap-3 px-4 h-[46px] rounded-full cursor-pointer shadow-xl hover:scale-105 transition-transform"
+                        style={{ backgroundColor: '#FFFFFF', minWidth: 140 }}
+                      >
+                        <item.icon className="w-5 h-5 flex-shrink-0" style={{ color: '#000000' }} />
+                        <span className="text-sm font-semibold" style={{ color: '#000000' }}>{item.label}</span>
+                      </motion.li>
+                    ))}
+                    <motion.li
+                      initial={{ opacity: 0, x: 20, scale: 0.8 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: 20, scale: 0.8 }}
+                      transition={{ delay: floatingMenuItems.length * 0.06, type: "spring", stiffness: 260, damping: 20 }}
+                      onClick={() => { logout(); navigate('/'); }}
+                      className="flex items-center gap-3 px-4 h-[46px] rounded-full cursor-pointer shadow-xl hover:scale-105 transition-transform"
+                      style={{ backgroundColor: '#FF453A', minWidth: 140 }}
+                    >
+                      <span className="text-sm font-semibold text-white">Sair</span>
+                    </motion.li>
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </div>
-          </motion.div>
+          )}
 
-          <AnimatePresence>
-            {isOpen && (
-              <motion.ul className="absolute top-[60px] right-0 flex flex-col gap-[10px] m-0 p-0 list-none">
-                {floatingMenuItems.map((item, index) => (
-                  <motion.li
-                    key={item.label}
-                    initial={{ opacity: 0, x: 20, scale: 0.8 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 20, scale: 0.8 }}
-                    transition={{ delay: index * 0.06, type: "spring", stiffness: 260, damping: 20 }}
-                    onClick={() => navigate(item.href)}
-                    className="flex items-center gap-3 px-4 h-[46px] rounded-full cursor-pointer shadow-xl hover:scale-105 transition-transform"
-                    style={{ backgroundColor: '#FFFFFF', minWidth: 140 }}
-                  >
-                    <item.icon className="w-5 h-5 flex-shrink-0" style={{ color: '#000000' }} />
-                    <span className="text-sm font-semibold" style={{ color: '#000000' }}>{item.label}</span>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
-        </div>)}
-
+        </div>
       </div>
     </motion.div>
   );
