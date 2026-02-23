@@ -46,7 +46,7 @@ export function Navbar() {
     router.push(href);
   };
 
-  const handleLogout = () => { logout(); navigate('/login'); };
+  const handleLogout = () => { logout(); navigate('/'); };
 
   return (
     <motion.div
@@ -88,7 +88,7 @@ export function Navbar() {
         {/* LOGIN / LOGOUT */}
         {!isLoggedIn ? (
           <motion.button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/')}
             className="px-5 py-2 rounded-full text-sm font-bold text-black bg-white mr-3"
             whileTap={{ scale: 0.95 }}
           >
@@ -96,7 +96,8 @@ export function Navbar() {
           </motion.button>
         ) : null}
 
-        {/* HAMBURGUER */}
+        {/* HAMBURGUER - so logado */}
+        {isLoggedIn && (
         <div className="flex flex-col items-end z-[999]">
           <motion.div
             onClick={() => setIsOpen(!isOpen)}
@@ -132,7 +133,7 @@ export function Navbar() {
               </motion.ul>
             )}
           </AnimatePresence>
-        </div>
+        </div>}
 
       </div>
     </motion.div>
