@@ -60,10 +60,6 @@ export function LandingPage() {
             <button key={tab} onClick={() => setActiveTab(tab)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: activeTab === tab ? '#fff' : '#808085', borderBottom: activeTab === tab ? '2px solid #2563FF' : '2px solid transparent', paddingBottom: 4, whiteSpace: 'nowrap' }}>{tab}</button>
           ))}
         </nav>
-        <button onClick={() => setShowLogin(true)} style={{ background: 'linear-gradient(135deg, #2563FF, #7C3AED)', border: 'none', cursor: 'pointer', padding: '8px 18px', borderRadius: 20, color: '#fff', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>Entrar</button>
-      </header>
-      <section style={{ position: 'relative', paddingBottom: 48 }}>
-        <div style={{ position: 'relative', width: '100%', height: 'clamp(280px, 50vw, 480px)' }}>
           <motion.img key={activePlayer} src={player.img} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center bottom, ' + player.color + '60 0%, transparent 70%)' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, #0a0a0c 100%)' }} />
