@@ -23,13 +23,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [authTab, setAuthTab] = useState<'login' | 'register'>('login');
 
   useEffect(() => {
-    const stored = localStorage.getItem('matzon_auth');
-    if (stored === 'true') setIsLoggedIn(true);
+    const s = localStorage.getItem('matzon_auth');
+    if (s === 'true') setIsLoggedIn(true);
     setIsLoading(false);
   }, []);
 
-  const login = () => { localStorage.setItem('matzon_auth', 'true'); setIsLoggedIn(true); setShowAuthModal(false); };
-  const logout = () => { localStorage.removeItem('matzon_auth'); setIsLoggedIn(false); };
+  const login = () => {
+    localStorage.setItem('matzon_auth', 'true');
+    document.cookie = 'matzon_auth=true; path=/; max-age=604800';
+    setIsLoggedIn(true);
+    setShowAuthModal(false);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('matzon_auth');
+    document.cookie = 'matzon_auth=; path=/; max-age=0';
+    setIsLoggedIn(false);
+  };
+
   const openAuthModal = (tab: 'login' | 'register' = 'login') => { setAuthTab(tab); setShowAuthModal(true); };
   const closeAuthModal = () => setShowAuthModal(false);
 
