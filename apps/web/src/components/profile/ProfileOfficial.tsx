@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, MoreVertical, X, Pencil, Share, Flag, BadgeCheck, Play, Heart } from 'lucide-react';
 
-const chips = ['FPS', 'Competitive', 'Adventure', 'Highlights', 'Gameplay', 'Speedrun', 'WL Weekend League Champions'];
+const chips = ['Todos', 'Valorant', 'CS2', 'Highlights', 'Torneios', 'Clutches', 'Liga Nacional'];
 const tabs = ['Home All', 'Galeria', 'Jogos', 'Live', 'Torneio', 'Eventos', 'Clã', 'Grupo', 'Amigos', 'About'];
 const posts = [
   { id: 1, img: 'https://images.unsplash.com/photo-1542393545-facac42e67ee?q=80&w=800', views: '12K', type: 'video' },
@@ -74,6 +74,20 @@ export function ProfileOfficial() {
           </h1>
           <p className="text-[14px] text-white/90 leading-snug">Pro Valorant Player for MATZON.<br/>Dominando o ranking global 🌍</p>
         </div>
+      </section>
+
+      <section className="flex justify-center gap-3 px-4 mb-4">
+        {[
+          { value: '4.850', label: 'ELO', color: '#2563FF' },
+          { value: '68%', label: 'Winrate', color: '#30D158' },
+          { value: '12', label: 'Torneios', color: '#7C3AED' },
+          { value: 'Elite', label: 'Rank', color: '#FFD60A' },
+        ].map((s, i) => (
+          <div key={i} className="flex-1 text-center py-3 rounded-[16px]" style={{ backgroundColor: '#18181c' }}>
+            <span className="block font-black text-[18px]" style={{ color: s.color }}>{s.value}</span>
+            <span className="text-[11px] font-bold" style={{ color: '#808085' }}>{s.label}</span>
+          </div>
+        ))}
       </section>
 
       <section className="flex justify-center items-center py-4 pb-6">
