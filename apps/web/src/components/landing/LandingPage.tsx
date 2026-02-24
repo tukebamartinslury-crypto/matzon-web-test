@@ -44,7 +44,7 @@ export function LandingPage() {
   const [impactNum] = useState(15);
 
   return (
-    <div style={{ backgroundColor: '#0B111A', color: '#fff', fontFamily: "'Inter', sans-serif", maxWidth: 480, margin: '0 auto', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#0B111A', color: '#fff', fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
 
       {/* HEADER */}
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', backgroundColor: '#0B111A', position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
