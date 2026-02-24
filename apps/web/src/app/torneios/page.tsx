@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import { LoadingScreen } from '@/components/ui/Loading';
 
 export default function TorneiosPage() {
+  const [tab, setTab] = React.useState('');
   const { isLoggedIn, isLoading } = useAuthGuard();
   if (isLoading) return <LoadingScreen />;
   if (!isLoggedIn) return null;
