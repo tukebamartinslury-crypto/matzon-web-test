@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { Search, LogIn, Globe, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Gamepad2, MessageCircle } from 'lucide-react';
+import { Globe, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
 
 const impactSlides = [
   { number: '2.5M+', label: 'Jogadores Ativos', desc: 'Mais de 2.5 milhões de jogadores competem na plataforma MATZON em todo o mundo.', icon: '👥' },
@@ -59,19 +59,6 @@ export function LandingPage() {
 
   return (
     <div style={{ backgroundColor: '#0B111A', color: '#fff', fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
-
-      {/* HEADER */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', backgroundColor: '#0B111A', position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: -1 }}>MATZ<span style={{ fontWeight: 400, fontFamily: 'serif', fontSize: 24 }}>ON</span></div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
-          <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}><Gamepad2 style={{ width: 20, height: 20 }} /></button>
-          <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}><Globe style={{ width: 20, height: 20 }} /></button>
-          <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}><Search style={{ width: 20, height: 20 }} /></button>
-          <button onClick={() => openAuthModal('login')} style={{ backgroundColor: '#0075FF', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: 4, fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5, cursor: 'pointer' }}>
-            <LogIn style={{ width: 14, height: 14 }} /> Login
-          </button>
-        </div>
-      </header>
 
       {/* HERO */}
       <section style={{ position: 'relative', height: 350, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
