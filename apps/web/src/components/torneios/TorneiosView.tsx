@@ -98,9 +98,7 @@ export function TorneiosView() {
           <h1 style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.1 }}>Torneios em Destaque</h1>
         </div>
         <div style={{ position: 'absolute', bottom: 15, right: 20, zIndex: 10, width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg, #005EFA, #7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 12 }}>MZ</div>
-      </div>
-
-      {/* TABS */}
+      </div>{/* TABS */}
       <div style={{ display: 'flex', borderBottom: '1px solid #222A3B', padding: '0 20px', overflowX: 'auto' }}>
         {tabs.map(tab => (
           <button key={tab} onClick={() => setActiveTab(tab)} style={{ background: 'none', border: 'none', color: activeTab === tab ? '#F8F9FA' : '#9AA4B6', fontSize: 15, fontWeight: 600, padding: '15px 0', marginRight: 25, cursor: 'pointer', whiteSpace: 'nowrap', borderBottom: activeTab === tab ? '3px solid #005EFA' : '3px solid transparent' }}>{tab}</button>
