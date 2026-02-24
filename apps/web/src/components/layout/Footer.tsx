@@ -39,16 +39,6 @@ export function Footer() {
   return (
     <footer style={{ backgroundColor: '#0B111A', borderTop: '1px solid rgba(255,255,255,0.05)', fontFamily: "'Inter', sans-serif" }}>
 
-      {/* STATS BAR */}
-      <div style={{ display: 'flex', justifyContent: 'space-around', padding: '32px 20px', backgroundColor: '#131A26', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        {stats.map((s, i) => (
-          <div key={i} style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#0075FF' }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#9AA4B6', fontWeight: 600, marginTop: 2 }}>{s.label}</div>
-          </div>
-        ))}
-      </div>
-
       {/* LINKS */}
       <div style={{ padding: '40px 20px 20px' }}>
         <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: -1, marginBottom: 32 }}>

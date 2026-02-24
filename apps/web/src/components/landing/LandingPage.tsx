@@ -1,8 +1,15 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Search, LogIn, Globe, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Gamepad2, MessageCircle } from 'lucide-react';
+
+const impactSlides = [
+  { number: '2.5M+', label: 'Jogadores Ativos', desc: 'Mais de 2.5 milhões de jogadores competem na plataforma MATZON em todo o mundo.', icon: '👥' },
+  { number: '$150K', label: 'Prémios Distribuídos', desc: 'Em prémios distribuídos pelos nossos campeões ao longo das competições globais.', icon: '🏆' },
+  { number: '10K+', label: 'Torneios Realizados', desc: 'Mais de 10 mil torneios organizados em múltiplos títulos e categorias.', icon: '⚔️' },
+  { number: '15', label: 'Países', desc: 'Países diferentes em 4 continentes diferentes acolheram as Finais MATZON!', icon: '🌍' },
+];
 
 const milestones = [
   { year: '2026', img: 'https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=300', desc: 'MATZON Finals regressa com edição multi-titulo com as melhores equipas do mundo.' },
@@ -41,7 +48,14 @@ export function LandingPage() {
   const router = useRouter();
   const { isLoggedIn, openAuthModal } = useAuth();
   const [openFaq, setOpenFaq] = useState(0);
-  const [impactNum] = useState(15);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide(prev => (prev + 1) % impactSlides.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div style={{ backgroundColor: '#0B111A', color: '#fff', fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
@@ -75,19 +89,32 @@ export function LandingPage() {
         <p>Através de competições pioneiras e experiências ao vivo, <strong style={{ color: '#fff' }}>MATZON inspira e une uma nova geração sob a bandeira do futebol digital.</strong></p>
       </section>
 
-      {/* IMPACTO */}
-      <section style={{ position: 'relative', padding: '60px 20px', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      {/* IMPACTO CARROSSEL */}
+      <section style={{ position: 'relative', padding: '60px 20px', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
         <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=1000&auto=format&fit=crop" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(11,17,26,0.85)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(11,17,26,0.88)' }} />
         <div style={{ position: 'relative', zIndex: 2 }}>
           <Globe style={{ width: 32, height: 32, color: '#0075FF', display: 'block', margin: '0 auto 15px' }} />
-          <h2 style={{ fontSize: 22, fontWeight: 800, marginBottom: 15 }}>Impacto Global da MATZON</h2>
-          <div style={{ fontSize: 100, fontWeight: 900, color: '#0075FF', lineHeight: 1, letterSpacing: -5 }}>{impactNum}</div>
-          <p style={{ fontSize: 14, fontWeight: 700, padding: '0 20px', marginTop: 10 }}>Países diferentes em 4 continentes acolheram as Finais MATZON!</p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 25, color: '#9AA4B6' }}>
-            <ChevronLeft style={{ width: 16, height: 16 }} />
-            {[1,2,3,4].map(i => <span key={i} style={{ width: i===1?25:15, height: 3, background: i===1?'#0075FF':'rgba(255,255,255,0.2)', borderRadius: 2 }} />)}
-            <ChevronRight style={{ width: 16, height: 16 }} />
+          <h2 style={{ fontSize: 22, fontWeight: 800, marginBottom: 30 }}>Impacto Global da MATZON</h2>
+          <div style={{ fontSize: 90, fontWeight: 900, color: '#0075FF', lineHeight: 1, letterSpacing: -5, transition: 'all 0.4s ease' }}>
+            {impactSlides[activeSlide].number}
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginTop: 8, marginBottom: 12 }}>
+            {impactSlides[activeSlide].label}
+          </div>
+          <p style={{ fontSize: 13, color: '#9AA4B6', padding: '0 20px', lineHeight: 1.6, minHeight: 48 }}>
+            {impactSlides[activeSlide].desc}
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 25 }}>
+            <button onClick={() => setActiveSlide(prev => (prev - 1 + impactSlides.length) % impactSlides.length)} style={{ background: 'none', border: 'none', color: '#9AA4B6', cursor: 'pointer' }}>
+              <ChevronLeft style={{ width: 16, height: 16 }} />
+            </button>
+            {impactSlides.map((_, i) => (
+              <button key={i} onClick={() => setActiveSlide(i)} style={{ width: i === activeSlide ? 25 : 15, height: 3, background: i === activeSlide ? '#0075FF' : 'rgba(255,255,255,0.2)', borderRadius: 2, border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s' }} />
+            ))}
+            <button onClick={() => setActiveSlide(prev => (prev + 1) % impactSlides.length)} style={{ background: 'none', border: 'none', color: '#9AA4B6', cursor: 'pointer' }}>
+              <ChevronRight style={{ width: 16, height: 16 }} />
+            </button>
           </div>
         </div>
       </section>
