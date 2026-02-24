@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { Globe, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
+import { Globe, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, MessageCircle, Gamepad2 } from 'lucide-react';
 
 const impactSlides = [
   { number: '2.5M+', label: 'Jogadores Ativos', desc: 'Mais de 2.5 milhões de jogadores competem na plataforma MATZON em todo o mundo.', icon: '👥' },
