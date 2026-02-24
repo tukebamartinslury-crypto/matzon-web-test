@@ -16,9 +16,9 @@ const transactions = [
 export default function WalletPage() {
   const { isLoggedIn, isLoading } = useAuthGuard();
   if (isLoading) return null;
-  if (!isLoggedIn) return null;
-
   const [tab, setTab] = useState('all');
+
+  if (!isLoggedIn) return null;
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
