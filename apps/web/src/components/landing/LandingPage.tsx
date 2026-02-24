@@ -132,7 +132,7 @@ export function LandingPage() {
         <div style={{ display: 'flex', gap: 20, padding: '20px 25px 40px', overflowX: 'auto', position: 'relative' }}>
           <div style={{ position: 'absolute', top: '60%', left: 0, right: 0, height: 2, backgroundColor: '#0075FF' }} />
           {milestones.map((m, i) => (
-            <div key={i} style={{ position: 'relative', minWidth: 220, height: 300, borderRadius: 12, overflow: 'hidden', flexShrink: 0 }}>
+            <div key={i} style={{ position: 'relative', minWidth: 220, width: 220, height: 300, borderRadius: 12, overflow: 'hidden', flexShrink: 0 }}>
               <img src={m.img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.9))', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 20, textAlign: 'center' }}>
                 <h3 style={{ fontSize: 40, fontWeight: 900, marginBottom: 10 }}>{m.year}</h3>
