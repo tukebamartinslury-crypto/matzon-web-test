@@ -1,162 +1,95 @@
 'use client';
-
 import React from 'react';
-import { Trophy, Swords, Users, Target, Twitter, Youtube, Instagram, Twitch, MessageCircle, Mail } from 'lucide-react';
 
 const footerLinks = [
   {
-    title: 'Plataforma',
-    links: ['Dashboard', 'Rankings', 'Torneios', 'Matchmaking', 'Leaderboard'],
+    title: 'MATZON',
+    links: ['Sobre a MATZON', 'FAMEHERGAME', 'Good Game Promise', 'Registo', 'Eventos', 'Carreiras'],
+  },
+  {
+    title: 'Competições',
+    links: ['MATZON Finals', 'Torneios', 'Rankings', 'Matchmaking', 'Leaderboard', 'Historial'],
   },
   {
     title: 'Comunidade',
-    links: ['Feed', 'Clãs', 'Eventos', 'Streamers', 'Blog'],
+    links: ['Feed', 'Clas', 'Streamers', 'Blog', 'Discord', 'Parceiros'],
   },
   {
     title: 'Suporte',
-    links: ['Centro de Ajuda', 'Contacto', 'Reportar Bug', 'Termos de Uso', 'Privacidade'],
-  },
-  {
-    title: 'Empresa',
-    links: ['Sobre nós', 'Carreiras', 'Parceiros', 'Imprensa', 'Investidores'],
+    links: ['Centro de Ajuda', 'Contacto', 'Reportar Bug', 'Termos de Uso', 'Privacidade', 'Cookies'],
   },
 ];
 
 const socials = [
-  { icon: Twitter, label: 'Twitter' },
-  { icon: Youtube, label: 'YouTube' },
-  { icon: Instagram, label: 'Instagram' },
-  { icon: Twitch, label: 'Twitch' },
-  { icon: MessageCircle, label: "Discord" },
+  { label: '𝕏', href: '#' },
+  { label: 'IG', href: '#' },
+  { label: 'YT', href: '#' },
+  { label: 'TTV', href: '#' },
+  { label: 'DC', href: '#' },
 ];
 
 const stats = [
-  { icon: Users, value: '2.5M+', label: 'Jogadores' },
-  { icon: Trophy, value: '$150k', label: 'Prémios' },
-  { icon: Swords, value: '10k+', label: 'Torneios' },
-  { icon: Target, value: '99.9%', label: 'Uptime' },
+  { value: '2.5M+', label: 'Jogadores' },
+  { value: '$150K', label: 'Prémios' },
+  { value: '10K+', label: 'Torneios' },
+  { value: '15', label: 'Países' },
 ];
 
 export function Footer() {
   return (
-    <footer className="w-full mt-10" style={{ backgroundColor: 'var(--bg-card)' }}>
+    <footer style={{ backgroundColor: '#0B111A', borderTop: '1px solid rgba(255,255,255,0.05)', fontFamily: "'Inter', sans-serif" }}>
 
-      {/* Stats Bar */}
-      <div className="w-full" style={{ backgroundColor: 'var(--bg-card)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(10,132,255,0.1)' }}>
-                  <s.icon className="w-5 h-5" style={{ color: '#0A84FF' }} />
-                </div>
-                <div>
-                  <p className="text-base font-black" style={{ color: 'var(--text-primary)' }}>{s.value}</p>
-                  <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{s.label}</p>
-                </div>
-              </div>
-            ))}
+      {/* STATS BAR */}
+      <div style={{ display: 'flex', justifyContent: 'space-around', padding: '32px 20px', backgroundColor: '#131A26', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        {stats.map((s, i) => (
+          <div key={i} style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: '#0075FF' }}>{s.value}</div>
+            <div style={{ fontSize: 11, color: '#9AA4B6', fontWeight: 600, marginTop: 2 }}>{s.label}</div>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-1 mb-4">
-            <span className="text-2xl font-black" style={{ color: "var(--text-primary)" }}>MATZ</span>
-            <span className="text-2xl font-black" style={{ color: "#0A84FF" }}>ON</span>
-            </div>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
-              A infraestrutura definitiva para jogadores competitivos. Suba no ranking, conquiste torneios e construa o seu legado.
-            </p>
-            <div className="flex items-center gap-2">
-              {socials.map((s) => (
-                <button
-                  key={s.label}
-                  title={s.label}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-secondary)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#0A84FF')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-secondary)')}
-                >
-                  <s.icon className="w-4 h-4" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Links */}
-          {footerLinks.map((col) => (
-            <div key={col.title}>
-              <p className="text-xs font-black uppercase tracking-widest mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                {col.title}
-              </p>
-              <ul className="flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm transition-colors"
-                      style={{ color: 'var(--text-secondary)' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-secondary)')}
-                    >
-                      {link}
-                    </a>
-                  </li>
+      {/* LINKS */}
+      <div style={{ padding: '40px 20px 20px' }}>
+        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: -1, marginBottom: 32 }}>
+          MATZ<span style={{ fontWeight: 400, fontFamily: 'serif', fontSize: 24 }}>ON</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginBottom: 40 }}>
+          {footerLinks.map((col, i) => (
+            <div key={i}>
+              <h4 style={{ fontSize: 11, fontWeight: 800, color: '#fff', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>{col.title}</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {col.links.map((l, j) => (
+                  <a key={j} href="#" style={{ color: '#9AA4B6', textDecoration: 'none', fontSize: 12, fontWeight: 500 }}>{l}</a>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Newsletter */}
-        <div className="mt-10 p-6 rounded-3xl" style={{ backgroundColor: 'var(--bg-card)' }}>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-base font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Fica a par de tudo</p>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Recebe as últimas novidades de torneios e atualizações.</p>
-            </div>
-            <div className="flex items-center gap-2 w-full sm:w-auto">
-              <div className="flex items-center gap-2 px-4 py-2.5 rounded-2xl flex-1 sm:w-64"
-                style={{ backgroundColor: 'var(--bg-elevated)' }}>
-                <Mail className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--text-tertiary)' }} />
-                <input
-                  type="email"
-                  placeholder="O teu email..."
-                  className="bg-transparent text-sm focus:outline-none w-full"
-                  style={{ color: 'var(--text-primary)' }}
-                />
-              </div>
-              <button
-                className="px-5 py-2.5 rounded-2xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-80"
-                style={{ backgroundColor: '#0A84FF', color: '#fff' }}
-              >
-                Subscrever
-              </button>
-            </div>
+        {/* NEWSLETTER */}
+        <div style={{ backgroundColor: '#131A26', borderRadius: 12, padding: '20px', marginBottom: 32 }}>
+          <h4 style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>Fica a par de tudo</h4>
+          <p style={{ fontSize: 12, color: '#9AA4B6', marginBottom: 14 }}>Recebe novidades sobre torneios e eventos MATZON.</p>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input type="email" placeholder="O teu email" style={{ flex: 1, padding: '10px 14px', borderRadius: 6, backgroundColor: '#0B111A', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: 13, outline: 'none' }} />
+            <button style={{ backgroundColor: '#0075FF', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: 6, fontWeight: 700, fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscrever</button>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-8 pt-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-            © 2026 MATZON. Todos os direitos reservados.
-          </p>
-          <div className="flex items-center gap-4">
-            {['Termos', 'Privacidade', 'Cookies'].map((item) => (
-              <a key={item} href="#" className="text-xs transition-colors"
-                style={{ color: 'var(--text-tertiary)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-tertiary)')}>
-                {item}
-              </a>
+        {/* SOCIALS */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 20, marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+          {socials.map((s, i) => (
+            <a key={i} href={s.href} style={{ color: '#9AA4B6', textDecoration: 'none', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>{s.label}</a>
+          ))}
+        </div>
+
+        {/* BOTTOM */}
+        <div style={{ fontSize: 10, color: '#9AA4B6', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <span>Copyright © 2026 MATZON.GG. All rights reserved.</span>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
+            {['Privacidade', 'Termos', 'Cookies', 'Legal'].map((l, i) => (
+              <a key={i} href="#" style={{ color: '#9AA4B6', textDecoration: 'none' }}>{l}</a>
             ))}
           </div>
         </div>
