@@ -142,7 +142,7 @@ export function ProfileOfficial() {
       </section>
 
       {/* TABS */}
-      <nav className="sticky top-[60px] bg-black/90 backdrop-blur-md z-[90] border-b border-white/10 pt-1 flex overflow-x-auto px-4 hide-scrollbar">
+      <nav className="sticky top-[60px] z-[90] border-b border-white/10 pt-1 flex overflow-x-auto px-4 hide-scrollbar" style={{ backgroundColor: "#000" }}>
         {tabs.map((tab) => (
           <button key={tab} onClick={(e) => { setActiveTab(tab); handleScrollCenter(e); }}
             className="relative py-3 mr-5 text-[15px] font-semibold whitespace-nowrap transition-colors"
