@@ -14,10 +14,10 @@ const transactions = [
 ];
 
 export default function WalletPage() {
-  const { isLoggedIn, isLoading } = useAuthGuard();
-  if (isLoading) return null;
   const [tab, setTab] = useState('all');
+  const { isLoggedIn, isLoading } = useAuthGuard();
 
+  if (isLoading) return null;
   if (!isLoggedIn) return null;
 
   return (
