@@ -54,7 +54,7 @@ function BracketCard({ m }: { m: BM }) {
       {[{ t:m.t1, s:m.s1, w:m.winner===1 }, { t:m.t2, s:m.s2, w:m.winner===2 }].map((tm, ti) => (
         <div key={ti} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'8px 10px', borderBottom:ti===0?'1px solid rgba(255,255,255,0.05)':'none', backgroundColor:done&&tm.w?'rgba(0,94,250,0.12)':'transparent' }}>
           <div style={{ display:'flex', alignItems:'center', gap:7 }}>
-            <div style={{ width:14, height:14, borderRadius:'50%', backgroundColor:ti===0?'#005EFA':'#7C3AED', flexShrink:0 }}/>
+            <img src={tm.t === 'TBD' ? 'https://i.pravatar.cc/40?img=20' : getImg(tm.t)} style={{ width:20, height:20, borderRadius:'50%', objectFit:'cover', flexShrink:0, border:'1px solid #222A3B', opacity: tm.t === 'TBD' ? 0.3 : 1 }}/>
             <span style={{ fontSize:11, fontWeight:done&&tm.w?700:500, color:done&&!tm.w&&m.winner!==0?'#444':'#fff' }}>{tm.t}</span>
           </div>
           <span style={{ fontSize:13, fontWeight:800, color:done&&tm.w?'#fff':'#555', minWidth:14, textAlign:'right' }}>{tm.s!==null?tm.s:'—'}</span>
@@ -65,6 +65,26 @@ function BracketCard({ m }: { m: BM }) {
 }
 
 const TBD: BM = { t1:'TBD', s1:null, t2:'TBD', s2:null, winner:0, date:'A definir' };
+
+const teamImg: Record<string, string> = {
+  'MATZON FC':   'https://i.pravatar.cc/40?img=1',
+  'Elite Squad': 'https://i.pravatar.cc/40?img=2',
+  'Pro Lions':   'https://i.pravatar.cc/40?img=3',
+  'Night Hawks': 'https://i.pravatar.cc/40?img=7',
+  'Storm Kings': 'https://i.pravatar.cc/40?img=4',
+  'Cyber Force': 'https://i.pravatar.cc/40?img=5',
+  'Royal Flash': 'https://i.pravatar.cc/40?img=6',
+  'Alpha Dogs':  'https://i.pravatar.cc/40?img=8',
+  'Wolves FC':   'https://i.pravatar.cc/40?img=16',
+  'Storm Boys':  'https://i.pravatar.cc/40?img=14',
+  'Dark Horse':  'https://i.pravatar.cc/40?img=11',
+  'Flash Kings': 'https://i.pravatar.cc/40?img=10',
+  'Red Bulls':   'https://i.pravatar.cc/40?img=12',
+  'Blue Star':   'https://i.pravatar.cc/40?img=13',
+  'Alpha Unit':  'https://i.pravatar.cc/40?img=15',
+  'Iron Clan':   'https://i.pravatar.cc/40?img=18',
+};
+const getImg = (name: string) => teamImg[name] || 'https://i.pravatar.cc/40?img=20';
 
 // Dados do bracket
 const r16L: BM[] = [
