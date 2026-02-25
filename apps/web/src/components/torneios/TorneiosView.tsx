@@ -113,124 +113,180 @@ const sfR: BM[] = [TBD, TBD];
 const qfR: BM[] = [TBD, TBD, TBD, TBD];
 const r16R: BM[] = Array(8).fill(TBD);
 
-function BracketUCL() {
-  const CW = 160, CH = 82, GAP = 28, RG = 10, TH = 62;
+const av = [
+  'https://randomuser.me/api/portraits/men/32.jpg',
+  'https://randomuser.me/api/portraits/men/44.jpg',
+  'https://randomuser.me/api/portraits/men/55.jpg',
+  'https://randomuser.me/api/portraits/men/62.jpg',
+  'https://randomuser.me/api/portraits/men/71.jpg',
+  'https://randomuser.me/api/portraits/men/83.jpg',
+  'https://randomuser.me/api/portraits/men/91.jpg',
+  'https://randomuser.me/api/portraits/men/22.jpg',
+  'https://randomuser.me/api/portraits/men/36.jpg',
+  'https://randomuser.me/api/portraits/men/48.jpg',
+  'https://randomuser.me/api/portraits/men/57.jpg',
+  'https://randomuser.me/api/portraits/men/68.jpg',
+  'https://randomuser.me/api/portraits/men/77.jpg',
+  'https://randomuser.me/api/portraits/men/88.jpg',
+  'https://randomuser.me/api/portraits/men/12.jpg',
+  'https://randomuser.me/api/portraits/men/19.jpg',
+];
 
-  const r16Y = Array.from({length:8}, (_,i) => TH + i*(CH+RG));
-  const r16Cy = r16Y.map(y => y + CH/2);
-  const qfY = [0,1,2,3].map(i => (r16Cy[i*2]+r16Cy[i*2+1])/2 - CH/2);
-  const qfCy = qfY.map(y => y + CH/2);
-  const sfY = [0,1].map(i => (qfCy[i*2]+qfCy[i*2+1])/2 - CH/2);
-  const sfCy = sfY.map(y => y + CH/2);
-  const finY = (sfCy[0]+sfCy[1])/2 - CH/2;
-  const finCy = finY + CH/2;
+const LINE = 'rgba(255,255,255,0.18)';
+const MW = 145;
+const MH = 86;
+const BGAP = 48;
+const IH = MH + BGAP;
+const CW = 32;
 
-  const cR16L=0, cQFL=CW+GAP, cSFL=2*(CW+GAP), cFin=3*(CW+GAP), cSFR=4*(CW+GAP), cQFR=5*(CW+GAP), cR16R=6*(CW+GAP);
-  const W = 7*CW+6*GAP, H = TH+8*CH+7*RG+30;
-  const mx = (c:number) => c+CW+GAP/2;
+const BX0 = 0;
+const BX1 = BX0 + MW + CW;
+const BX2 = BX1 + MW + CW;
+const BX3 = BX2 + MW + CW;
+const BX4 = BX3 + MW + CW;
+const BX5 = BX4 + MW + CW;
+const BX6 = BX5 + MW + CW;
+const BTW = BX6 + MW;
 
-  const LabelH = ({text, col, color}: {text:string, col:number, color:string}) => (
-    <div style={{ position:'absolute', left:col, top:TH-20, width:CW, textAlign:'center', fontSize:8, fontWeight:800, color, textTransform:'uppercase', letterSpacing:1 }}>{text}</div>
-  );
+const BR1Y = [0, IH, IH*2, IH*3];
+const BR2Y = [IH/2, IH*2+IH/2];
+const BSFY = IH + IH/2;
+const BFY = BSFY;
+const CHAMP_Y = BFY - 175;
+const bmc = (y:number) => y + MH/2;
 
+type Player = { name:string; avatar:string };
+
+function MatchCard({ winner, loser, sw, sl, label, date, x, y, isFinal=false }: {
+  winner:Player; loser:Player; sw:number|null; sl:number|null;
+  label:string; date:string; x:number; y:number; isFinal?:boolean;
+}) {
   return (
-    <div style={{ overflowX:'auto', paddingBottom:20 }}>
-      <div style={{ position:'relative', width:W, height:H }}>
-        <svg style={{ position:'absolute', inset:0, overflow:'visible', pointerEvents:'none' }} width={W} height={H}>
-          {/* R16-L → QF-L */}
-          {[0,1,2,3].map(i => { const t=r16Cy[i*2],b=r16Cy[i*2+1],m=(t+b)/2; return (
-            <g key={"a"+i}>
-              <line x1={cR16L+CW} y1={t} x2={mx(cR16L)} y2={t} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={cR16L+CW} y1={b} x2={mx(cR16L)} y2={b} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={mx(cR16L)} y1={t} x2={mx(cR16L)} y2={b} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={mx(cR16L)} y1={m} x2={cQFL} y2={qfCy[i]} stroke="#1E293B" strokeWidth="2"/>
-            </g>
-          );})}
-          {/* QF-L → SF-L */}
-          {[0,1].map(i => { const t=qfCy[i*2],b=qfCy[i*2+1],m=(t+b)/2; return (
-            <g key={"b"+i}>
-              <line x1={cQFL+CW} y1={t} x2={mx(cQFL)} y2={t} stroke="#334155" strokeWidth="2"/>
-              <line x1={cQFL+CW} y1={b} x2={mx(cQFL)} y2={b} stroke="#334155" strokeWidth="2"/>
-              <line x1={mx(cQFL)} y1={t} x2={mx(cQFL)} y2={b} stroke="#334155" strokeWidth="2"/>
-              <line x1={mx(cQFL)} y1={m} x2={cSFL} y2={sfCy[i]} stroke="#334155" strokeWidth="2"/>
-              <circle cx={cSFL} cy={sfCy[i]} r="3" fill="#005EFA"/>
-            </g>
-          );})}
-          {/* SF-L → FINAL */}
-          <line x1={cSFL+CW} y1={sfCy[0]} x2={mx(cSFL)} y2={sfCy[0]} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={cSFL+CW} y1={sfCy[1]} x2={mx(cSFL)} y2={sfCy[1]} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={mx(cSFL)} y1={sfCy[0]} x2={mx(cSFL)} y2={sfCy[1]} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={mx(cSFL)} y1={finCy} x2={cFin} y2={finCy} stroke="#005EFA" strokeWidth="2"/>
-          <circle cx={cFin} cy={finCy} r="5" fill="#FFD60A"/>
-          {/* FINAL → SF-R */}
-          <line x1={cFin+CW} y1={finCy} x2={mx(cFin)} y2={finCy} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={mx(cFin)} y1={sfCy[0]} x2={mx(cFin)} y2={sfCy[1]} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={mx(cFin)} y1={sfCy[0]} x2={cSFR} y2={sfCy[0]} stroke="#005EFA" strokeWidth="2"/>
-          <line x1={mx(cFin)} y1={sfCy[1]} x2={cSFR} y2={sfCy[1]} stroke="#005EFA" strokeWidth="2"/>
-          {/* SF-R → QF-R */}
-          {[0,1].map(i => { const t=qfCy[i*2],b=qfCy[i*2+1]; return (
-            <g key={"c"+i}>
-              <line x1={cSFR+CW} y1={sfCy[i]} x2={mx(cSFR)} y2={sfCy[i]} stroke="#334155" strokeWidth="2"/>
-              <line x1={mx(cSFR)} y1={t} x2={mx(cSFR)} y2={b} stroke="#334155" strokeWidth="2"/>
-              <line x1={mx(cSFR)} y1={t} x2={cQFR} y2={t} stroke="#334155" strokeWidth="2"/>
-              <line x1={mx(cSFR)} y1={b} x2={cQFR} y2={b} stroke="#334155" strokeWidth="2"/>
-            </g>
-          );})}
-          {/* QF-R → R16-R */}
-          {[0,1,2,3].map(i => { const t=r16Cy[i*2],b=r16Cy[i*2+1]; return (
-            <g key={"d"+i}>
-              <line x1={cQFR+CW} y1={qfCy[i]} x2={mx(cQFR)} y2={qfCy[i]} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={mx(cQFR)} y1={t} x2={mx(cQFR)} y2={b} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={mx(cQFR)} y1={t} x2={cR16R} y2={t} stroke="#1E293B" strokeWidth="2"/>
-              <line x1={mx(cQFR)} y1={b} x2={cR16R} y2={b} stroke="#1E293B" strokeWidth="2"/>
-            </g>
-          );})}
-        </svg>
-
-        {/* TROFEU - topo centro */}
-        <div style={{ position:'absolute', left:cFin, top:0, width:CW, textAlign:'center' }}>
-          <div style={{ fontSize:30 }}>🏆</div>
-          <div style={{ fontSize:8, color:'#FFD60A', fontWeight:800, textTransform:'uppercase', letterSpacing:2, marginTop:2 }}>Campeao</div>
-        </div>
-
-        <LabelH text="Oitavos" col={cR16L} color="#64748B"/>
-        <LabelH text="Quartos" col={cQFL} color="#9AA4B6"/>
-        <LabelH text="Meias" col={cSFL} color="#005EFA"/>
-        <LabelH text="Final" col={cFin} color="#FFD60A"/>
-        <LabelH text="Meias" col={cSFR} color="#005EFA"/>
-        <LabelH text="Quartos" col={cQFR} color="#9AA4B6"/>
-        <LabelH text="Oitavos" col={cR16R} color="#64748B"/>
-
-        {/* R16 ESQUERDA */}
-        <div style={{ position:'absolute', left:cR16L, top:TH }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:RG }}>{r16L.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
-        {/* QF ESQUERDA */}
-        <div style={{ position:'absolute', left:cQFL, top:qfY[0] }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:qfY[1]-qfY[0]-CH }}>{qfL.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
-        {/* SF ESQUERDA */}
-        <div style={{ position:'absolute', left:cSFL, top:sfY[0] }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:sfY[1]-sfY[0]-CH }}>{sfL.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
-        {/* FINAL */}
-        <div style={{ position:'absolute', left:cFin, top:finY }}><BracketCard m={finalM}/></div>
-        {/* SF DIREITA */}
-        <div style={{ position:'absolute', left:cSFR, top:sfY[0] }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:sfY[1]-sfY[0]-CH }}>{sfR.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
-        {/* QF DIREITA */}
-        <div style={{ position:'absolute', left:cQFR, top:qfY[0] }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:qfY[1]-qfY[0]-CH }}>{qfR.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
-        {/* R16 DIREITA */}
-        <div style={{ position:'absolute', left:cR16R, top:TH }}>
-          <div style={{ display:'flex', flexDirection:'column', gap:RG }}>{r16R.map((m,i)=><BracketCard key={i} m={m}/>)}</div>
-        </div>
+    <div style={{ position:'absolute', width:MW, top:y, left:x, backgroundColor:'rgba(255,255,255,0.04)', borderRadius:12, overflow:'hidden' }}>
+      <div style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 12px', borderBottom:'1px solid rgba(255,255,255,0.04)', backgroundColor:'rgba(0,94,250,0.09)' }}>
+        <img src={winner.avatar} style={{ width:24, height:24, borderRadius:'50%', objectFit:'cover', flexShrink:0 }}/>
+        <span style={{ fontSize:11, fontWeight:700, flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', color:'#fff' }}>{winner.name}</span>
+        <span style={{ fontSize:11, fontWeight:900, color:'#005EFA', flexShrink:0 }}>{sw ?? '—'}</span>
+      </div>
+      <div style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 12px' }}>
+        <img src={loser.avatar} style={{ width:24, height:24, borderRadius:'50%', objectFit:'cover', flexShrink:0, opacity:0.5 }}/>
+        <span style={{ fontSize:11, flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', color:'#9AA4B6' }}>{loser.name}</span>
+        <span style={{ fontSize:11, color:'#9AA4B6', flexShrink:0 }}>{sl ?? '—'}</span>
+      </div>
+      <div style={{ padding:'4px 12px', backgroundColor:'rgba(255,255,255,0.02)' }}>
+        <span style={{ fontSize:8, fontWeight:700, color:'#9AA4B6', textTransform:'uppercase', letterSpacing:1 }}>
+          {label}{date ? ` · ${date}` : ''}
+          {isFinal && <span style={{ marginLeft:6, padding:'1px 6px', borderRadius:20, backgroundColor:'rgba(0,94,250,0.2)', color:'#005EFA' }}>FINAL</span>}
+        </span>
       </div>
     </div>
   );
 }
+
+function BracketUCL() {
+  const TOTAL_H = IH * 4;
+
+  return (
+    <div style={{ overflowX:'auto', paddingBottom:20 }}>
+      {/* Labels das rondas */}
+      <div style={{ display:'flex', marginBottom:8, width:BTW, flexShrink:0 }}>
+        {([
+          { label:'Oitavos', w:MW+CW },
+          { label:'Quartos', w:MW+CW },
+          { label:'Meias',   w:MW+CW },
+          { label:'Final',   w:MW+CW },
+          { label:'Meias',   w:MW+CW },
+          { label:'Quartos', w:MW+CW },
+          { label:'Oitavos', w:MW },
+        ] as {label:string,w:number}[]).map((r,i) => (
+          <div key={i} style={{ width:r.w, textAlign:'center', fontSize:9, fontWeight:900, textTransform:'uppercase', letterSpacing:2, color: i===3 ? '#005EFA' : '#9AA4B6', flexShrink:0 }}>{r.label}</div>
+        ))}
+      </div>
+
+      <div style={{ position:'relative', width:BTW, height:TOTAL_H+80 }}>
+
+        {/* SVG LINHAS */}
+        <svg style={{ position:'absolute', inset:0, pointerEvents:'none', overflow:'visible' }} width={BTW} height={TOTAL_H+80}>
+          {/* LEFT R1 → R2 par 0-1 */}
+          <line x1={BX0+MW} y1={bmc(BR1Y[0])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[0])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW+CW/2} y1={bmc(BR1Y[0])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW} y1={bmc(BR1Y[1])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW+CW/2} y1={(bmc(BR1Y[0])+bmc(BR1Y[1]))/2} x2={BX1} y2={(bmc(BR1Y[0])+bmc(BR1Y[1]))/2} stroke={LINE} strokeWidth={1.5}/>
+          {/* LEFT R1 → R2 par 2-3 */}
+          <line x1={BX0+MW} y1={bmc(BR1Y[2])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[2])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW+CW/2} y1={bmc(BR1Y[2])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[3])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW} y1={bmc(BR1Y[3])} x2={BX0+MW+CW/2} y2={bmc(BR1Y[3])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX0+MW+CW/2} y1={(bmc(BR1Y[2])+bmc(BR1Y[3]))/2} x2={BX1} y2={(bmc(BR1Y[2])+bmc(BR1Y[3]))/2} stroke={LINE} strokeWidth={1.5}/>
+          {/* LEFT R2 → SF */}
+          <line x1={BX1+MW} y1={bmc(BR2Y[0])} x2={BX1+MW+CW/2} y2={bmc(BR2Y[0])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX1+MW+CW/2} y1={bmc(BR2Y[0])} x2={BX1+MW+CW/2} y2={bmc(BR2Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX1+MW} y1={bmc(BR2Y[1])} x2={BX1+MW+CW/2} y2={bmc(BR2Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX1+MW+CW/2} y1={bmc(BSFY)} x2={BX2} y2={bmc(BSFY)} stroke={LINE} strokeWidth={1.5}/>
+          {/* Trophy line */}
+          <line x1={BX3+MW/2} y1={BFY-49} x2={BX3+MW/2} y2={BFY} stroke="#FFD60A" strokeWidth={1.5} strokeDasharray="4 3"/>
+          {/* LEFT SF → FINAL */}
+          <line x1={BX2+MW} y1={bmc(BSFY)} x2={BX3} y2={bmc(BFY)} stroke="#005EFA" strokeWidth={1.5}/>
+          {/* FINAL → RIGHT SF */}
+          <line x1={BX3+MW} y1={bmc(BFY)} x2={BX4} y2={bmc(BSFY)} stroke="#005EFA" strokeWidth={1.5}/>
+          {/* RIGHT R2 → SF */}
+          <line x1={BX4+MW} y1={bmc(BSFY)} x2={BX4+MW+CW/2} y2={bmc(BSFY)} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX4+MW+CW/2} y1={bmc(BR2Y[0])} x2={BX4+MW+CW/2} y2={bmc(BR2Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX4+MW+CW/2} y1={bmc(BR2Y[0])} x2={BX5} y2={bmc(BR2Y[0])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX4+MW+CW/2} y1={bmc(BR2Y[1])} x2={BX5} y2={bmc(BR2Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          {/* RIGHT R1 par 0-1 */}
+          <line x1={BX5+MW} y1={bmc(BR2Y[0])} x2={BX5+MW+CW/2} y2={bmc(BR2Y[0])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[0])} x2={BX5+MW+CW/2} y2={bmc(BR1Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[0])} x2={BX6} y2={bmc(BR1Y[0])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[1])} x2={BX6} y2={bmc(BR1Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          {/* RIGHT R1 par 2-3 */}
+          <line x1={BX5+MW} y1={bmc(BR2Y[1])} x2={BX5+MW+CW/2} y2={bmc(BR2Y[1])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[2])} x2={BX5+MW+CW/2} y2={bmc(BR1Y[3])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[2])} x2={BX6} y2={bmc(BR1Y[2])} stroke={LINE} strokeWidth={1.5}/>
+          <line x1={BX5+MW+CW/2} y1={bmc(BR1Y[3])} x2={BX6} y2={bmc(BR1Y[3])} stroke={LINE} strokeWidth={1.5}/>
+        </svg>
+
+        {/* CAMPEAO */}
+        <div style={{ position:'absolute', width:MW, top:CHAMP_Y, left:BX3, backgroundColor:'rgba(255,214,10,0.08)', borderRadius:16, display:'flex', flexDirection:'column', alignItems:'center', gap:6, padding:'12px 16px' }}>
+          <div style={{ fontSize:20 }}>🏆</div>
+          <span style={{ fontSize:9, fontWeight:900, textTransform:'uppercase', letterSpacing:2, color:'#FFD60A' }}>CAMPEAO</span>
+          <img src={av[0]} style={{ width:36, height:36, borderRadius:'50%', objectFit:'cover', border:'2px solid #FFD60A' }}/>
+          <span style={{ fontSize:12, fontWeight:700, color:'#fff' }}>Faker</span>
+        </div>
+
+        {/* FINAL */}
+        <MatchCard winner={{name:'Faker',avatar:av[0]}} loser={{name:'Coldzera',avatar:av[12]}} sw={3} sl={2} label="FINAL" date="30 MAI." x={BX3} y={BFY} isFinal/>
+
+        {/* LEFT SF */}
+        <MatchCard winner={{name:'Faker',avatar:av[0]}} loser={{name:'Kscerato',avatar:av[6]}} sw={3} sl={2} label="SF1" date="28 ABR." x={BX2} y={BSFY}/>
+
+        {/* LEFT R2 */}
+        <MatchCard winner={{name:'Faker',avatar:av[0]}} loser={{name:'S1mple',avatar:av[2]}} sw={3} sl={2} label="QF1" date="7 ABR." x={BX1} y={BR2Y[0]}/>
+        <MatchCard winner={{name:'Kscerato',avatar:av[6]}} loser={{name:'TenZ',avatar:av[4]}} sw={3} sl={1} label="QF2" date="7 ABR." x={BX1} y={BR2Y[1]}/>
+
+        {/* LEFT R1 */}
+        <MatchCard winner={{name:'Faker',avatar:av[0]}} loser={{name:'ZywOo',avatar:av[1]}} sw={3} sl={1} label="R1" date="10 MAR." x={BX0} y={BR1Y[0]}/>
+        <MatchCard winner={{name:'S1mple',avatar:av[2]}} loser={{name:'NiKo',avatar:av[3]}} sw={3} sl={2} label="R1" date="10 MAR." x={BX0} y={BR1Y[1]}/>
+        <MatchCard winner={{name:'TenZ',avatar:av[4]}} loser={{name:'Shroud',avatar:av[5]}} sw={3} sl={0} label="R1" date="10 MAR." x={BX0} y={BR1Y[2]}/>
+        <MatchCard winner={{name:'Kscerato',avatar:av[6]}} loser={{name:'Device',avatar:av[7]}} sw={3} sl={1} label="R1" date="10 MAR." x={BX0} y={BR1Y[3]}/>
+
+        {/* RIGHT SF */}
+        <MatchCard winner={{name:'Coldzera',avatar:av[12]}} loser={{name:'Apex',avatar:av[9]}} sw={3} sl={1} label="SF2" date="28 ABR." x={BX4} y={BSFY}/>
+
+        {/* RIGHT R2 */}
+        <MatchCard winner={{name:'Apex',avatar:av[9]}} loser={{name:'Rain',avatar:av[11]}} sw={3} sl={1} label="QF3" date="7 ABR." x={BX5} y={BR2Y[0]}/>
+        <MatchCard winner={{name:'Coldzera',avatar:av[12]}} loser={{name:'Twistzz',avatar:av[15]}} sw={3} sl={2} label="QF4" date="7 ABR." x={BX5} y={BR2Y[1]}/>
+
+        {/* RIGHT R1 */}
+        <MatchCard winner={{name:'Apex',avatar:av[9]}} loser={{name:'Mixer',avatar:av[8]}} sw={3} sl={1} label="R1" date="10 MAR." x={BX6} y={BR1Y[0]}/>
+        <MatchCard winner={{name:'Rain',avatar:av[11]}} loser={{name:'Krimz',avatar:av[10]}} sw={3} sl={2} label="R1" date="10 MAR." x={BX6} y={BR1Y[1]}/>
+        <MatchCard winner={{name:'Coldzera',avatar:av[12]}} loser={{name:'EliGE',avatar:av[13]}} sw={3} sl={0} label="R1" date="10 MAR." x={BX6} y={BR1Y[2]}/>
+        <MatchCard winner={{name:'Twistzz',avatar:av[15]}} loser={{name:'Xantares',avatar:av[14]}} sw={3} sl={2} label="R1" date="10 MAR." x={BX6} y={BR1Y[3]}/>
+
+      </div>
+    </div>
+  );
+}
+
 
 export function TorneiosView() {
   const [activeTab, setActiveTab] = useState('Em Destaque');
