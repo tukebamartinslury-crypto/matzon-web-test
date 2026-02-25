@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const games = [
@@ -27,6 +28,7 @@ export function EventosView() {
   const [activeGame, setActiveGame] = useState('fc');
   const [search, setSearch] = useState('');
   const [activeEvent, setActiveEvent] = useState<'liga'|'champions'|null>(null);
+  const router = useRouter();
   const filtered = competitions.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
@@ -82,7 +84,7 @@ export function EventosView() {
                 </div>
                 <div style={{ fontSize: 11, color: '#9AA4B6', fontWeight: 600 }}>Liga oficial MATZON • A cada 10 temporadas • 30 jogadores</div>
               </div>
-              <div style={{ fontSize: 18, color: '#9AA4B6', transform: activeEvent==='liga'?'rotate(90deg)':'rotate(0deg)', transition: 'transform 0.2s' }}>›</div>
+              <div style={{ display:'flex', gap:8, alignItems:'center' }}><button onClick={e=>{e.stopPropagation();router.push('/liga-elite')}} style={{ backgroundColor:'#7C3AED', color:'#fff', border:'none', borderRadius:8, padding:'6px 12px', fontSize:11, fontWeight:700, cursor:'pointer' }}>Entrar →</button><div style={{ fontSize:18, color:'#9AA4B6', transform:activeEvent==='liga'?'rotate(90deg)':'rotate(0deg)', transition:'transform 0.2s' }}>›</div></div>
             </div>
             {activeEvent==='liga' && (
               <div style={{ padding: '0 16px 16px', borderTop: '1px solid rgba(124,58,237,0.2)' }}>
@@ -116,7 +118,7 @@ export function EventosView() {
                 </div>
                 <div style={{ fontSize: 11, color: '#9AA4B6', fontWeight: 600 }}>Torneio MATZON • Eliminatorias • 30 jogadores</div>
               </div>
-              <div style={{ fontSize: 18, color: '#9AA4B6', transform: activeEvent==='champions'?'rotate(90deg)':'rotate(0deg)', transition: 'transform 0.2s' }}>›</div>
+              <div style={{ display:'flex', gap:8, alignItems:'center' }}><button onClick={e=>{e.stopPropagation();router.push('/champions-cup')}} style={{ backgroundColor:'#D97706', color:'#fff', border:'none', borderRadius:8, padding:'6px 12px', fontSize:11, fontWeight:700, cursor:'pointer' }}>Entrar →</button><div style={{ fontSize:18, color:'#9AA4B6', transform:activeEvent==='champions'?'rotate(90deg)':'rotate(0deg)', transition:'transform 0.2s' }}>›</div></div>
             </div>
             {activeEvent==='champions' && (
               <div style={{ padding: '0 16px 16px', borderTop: '1px solid rgba(245,158,11,0.2)' }}>
