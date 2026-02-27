@@ -1,14 +1,18 @@
+'use client';
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 import { Navbar } from '@/components/layout/Navbar';
-import { Leaderboard } from '@/components/gaming/Leaderboard';
 import { Footer } from '@/components/layout/Footer';
+import { LoadingScreen } from '@/components/ui/Loading';
+import { RankingView } from '@/components/ranking/RankingView';
 
 export default function RankingPage() {
+  const { isLoggedIn, isLoading } = useAuthGuard();
+  if (isLoading) return <LoadingScreen />;
+  if (!isLoggedIn) return null;
   return (
-    <main className="min-h-screen overflow-x-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="fixed top-0 left-0 w-full z-[100]"><Navbar /></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-10">
-        <Leaderboard />
-      </div>
+    <main style={{ backgroundColor: '#0B121E', minHeight: '100vh' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 100 }}><Navbar /></div>
+      <RankingView />
       <Footer />
     </main>
   );
