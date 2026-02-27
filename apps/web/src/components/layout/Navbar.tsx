@@ -11,7 +11,7 @@ const menuItems = [
   { icon: CalendarDays, label: 'Eventos',    href: '/eventos' },
   { icon: BarChart2,    label: 'Ranking',    href: '/ranking' },
   { icon: Users,        label: 'Comunidade', href: '/comunidade' },
-  { icon: User,         label: 'Perfil',     href: '/profile' },
+  { icon: User,         label: 'Perfil',     href: '/perfil' },
 ];
 
 export function Navbar() {
